@@ -7,10 +7,10 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-    //showImg("img/ojo.jpg");
-    //showImg("img/ojo2.jpg");
-	//showImg("img/ojo3.jpg");
-	trk::detect("img/ojo4.jpg");
+    //trk::detect("img/ojo.jpg");
+    //trk::detect("img/ojo2.jpg");
+	trk::detect("img/ojo3.jpg");
+	//trk::detect("img/ojo4.jpg");
 
 	cv::waitKey(0);
 
