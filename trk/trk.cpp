@@ -2,6 +2,11 @@
 
 /**
  * Eyes detection
+ *
+ * @param const char* cascadePath Cascade classifier file path
+ * @param cv::Mat     img         Image matrix
+ *
+ * @return std::vector<cv::Rect>
  */
 std::vector<cv::Rect> trk::detectEyes(const char* cascadePath, cv::Mat img) 
 {
@@ -32,6 +37,10 @@ cv::Mat img_gray;
 
 /**
  * Pupil detection
+ *
+ * @param cv::Mat eye Eye image matrix
+ *
+ * @return cv::Rect
  */
 cv::Rect trk::detectPupil(cv::Mat eye)
 {
@@ -83,6 +92,14 @@ cv::Mat gray;
 	return cv::boundingRect(maxContour);
 }
 
+/**
+ * Pupil tracking
+ *
+ * @param cv::Mat eye Eye image matrix
+ * @param cv::Mat tpl Template image matrix
+ *
+ * @return cv::Point
+ */
 cv::Point trk::trackPupil(cv::Mat eye, cv::Mat tpl)
 {
 cv::Mat result;
@@ -104,6 +121,10 @@ int match_method = CV_TM_CCORR_NORMED;
 
 /**
  * Run detection and show result
+ *
+ * @param const char* name Image file path to process
+ *
+ * @return void
  */
 void trk::detect(const char* name)
 {

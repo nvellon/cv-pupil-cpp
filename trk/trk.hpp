@@ -9,21 +9,39 @@ namespace trk
 {
     /**
      * Eyes detection
+     *
+     * @param const char* cascadePath Cascade classifier file path
+     * @param cv::Mat     img         Image matrix
+     *
+     * @return std::vector<cv::Rect>
      */
     std::vector<cv::Rect> detectEyes(const char* cascadePath, cv::Mat img);
 
     /**
      * Pupil detection
+     *
+     * @param cv::Mat eye Eye image matrix
+     *
+     * @return cv::Rect
      */
     cv::Rect detectPupil(cv::Mat eye);
     
     /**
      * Pupil tracking
+     *
+     * @param cv::Mat eye Eye image matrix
+     * @param cv::Mat tpl Template image matrix
+     *
+     * @return cv::Point
      */
     cv::Point trackPupil(cv::Mat eye, cv::Mat tpl);
 
     /**
      * Run detection and show result
+     *
+     * @param const char* name Image file path to process
+     *
+     * @return void
      */
     void detect(const char* name);
 }
