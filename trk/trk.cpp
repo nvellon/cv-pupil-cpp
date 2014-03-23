@@ -131,8 +131,15 @@ void trk::detect(const char* name)
     // Load image
 	cv::Mat img = cv::imread(name);
 	if (!img.empty()) {
+	    // shrink image
+	    int minRows = 300;
+	    if (img.rows > minRows) {
+	        int minCols = cvRound(((double)minRows / (double)img.rows) * (double)img.cols);
+            cv::resize(img, img, cv::Size(minCols, minRows), 0, 0, cv::INTER_LINEAR);
+	    }
+
         cv::namedWindow(name, CV_WINDOW_NORMAL);
-        
+
         // Eyes detection
         std::cout << "Eyes detection" << std::endl;
         double t = (double)cvGetTickCount();
