@@ -7,10 +7,12 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-    //trk::detect("img/ojo.jpg");
-    //trk::detect("img/ojo2.jpg");
-	trk::detect("img/ojo3.jpg");
-	//trk::detect("img/ojo4.jpg");
+    //trk::detectFile("img/ojo.jpg");
+    //trk::detectFile("img/ojo2.jpg");
+	//trk::detectFile("img/ojo3.jpg");
+	//trk::detectFile("img/ojo4.jpg");
+	
+	trk::detectCam();
 
 	cv::waitKey(0);
 

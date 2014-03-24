@@ -37,11 +37,18 @@ namespace trk
     cv::Point trackPupil(cv::Mat eye, cv::Mat tpl);
 
     /**
-     * Run detection and show result
+     * Run detection on a file and show result
      *
      * @param const char* name Image file path to process
      *
      * @return void
      */
-    void detect(const char* name);
+    void detectFile(const char* name);
+
+    /**
+     * Run camera detection and show result
+     *
+     * @return void
+     */
+    void detectCam();
 }

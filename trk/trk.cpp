@@ -29,7 +29,7 @@ cv::Mat img_gray;
         //|CV_HAAR_DO_CANNY_PRUNING
         |CV_HAAR_SCALE_IMAGE
         ,
-        cv::Size(cvRound(img.rows*0.3), cvRound(img.cols*0.3)) // min size
+        cv::Size(cvRound(img.cols*0.2), cvRound(img.rows*0.2)) // min size
     );
 
     return areas;
@@ -54,9 +54,9 @@ cv::Mat gray;
     //cv::blur(gray, gray, Size(30, 30), Point(-1,-1), BORDER_DEFAULT);
 
     cv::Mat candidate;
-	std::vector<cv::Point> maxContour;
+	cv::Rect pupil;
 
-	for (int threshold = 0; threshold <= 255; threshold++) {
+	for (int threshold = 0; threshold <= 255 && pupil.width < 1; threshold++) {
 	    // Convert to binary image by thresholding it
 	    cv::threshold(gray, candidate, threshold, 255, cv::THRESH_BINARY_INV);
 
@@ -68,28 +68,24 @@ cv::Mat gray;
 	    cv::drawContours(candidate, contours, -1, CV_RGB(255,255,255), -1);
 
 	    for (int i = 0; i < contours.size(); i++) {
-	        if (maxContour.empty())
-	            maxContour = contours[i];
-
-	        double areaMaxContour = cv::contourArea(maxContour);
-
 		    double area = cv::contourArea(contours[i]);
 		    cv::Rect rect = cv::boundingRect(contours[i]);
-		    int radius = rect.width/2;
+		    int radius = rect.width / 2;
 
-		    // If contour: has round shape
+		    double sizeRate = (double)rect.width / (double)eye.cols;
+
+		    // If contour: has round shape and has a specific size relation
 		    // Then it is the pupil
-		    if (area >= 200 &&
+		    if (sizeRate >= 0.25 && sizeRate <= 0.41 &&
 		        std::abs(1 - ((double)rect.width / (double)rect.height)) <= 0.2 &&
-			    std::abs(1 - (area / (CV_PI * std::pow(radius, 2)))) <= 0.2 &&
-			    area > areaMaxContour)
+			    std::abs(1 - (area / (CV_PI * std::pow(radius, 2)))) <= 0.2)
 		    {
-		        maxContour = contours[i];
+		        pupil = cv::boundingRect(contours[i]);
 		    }
 	    }
 	}
 
-	return cv::boundingRect(maxContour);
+	return pupil;
 }
 
 /**
@@ -115,24 +111,25 @@ int match_method = CV_TM_CCORR_NORMED;
 	    matchLoc = minLoc;
 	else 
 	    matchLoc = maxLoc;
-	
+
 	return matchLoc;
 }
 
 /**
- * Run detection and show result
+ * Run detection on a file and show result
  *
  * @param const char* name Image file path to process
  *
  * @return void
  */
-void trk::detect(const char* name)
+void trk::detectFile(const char* name)
 {
     // Load image
 	cv::Mat img = cv::imread(name);
+	
 	if (!img.empty()) {
 	    // shrink image
-	    int minRows = 300;
+	    int minRows = 400;
 	    if (img.rows > minRows) {
 	        int minCols = cvRound(((double)minRows / (double)img.rows) * (double)img.cols);
             cv::resize(img, img, cv::Size(minCols, minRows), 0, 0, cv::INTER_LINEAR);
@@ -188,5 +185,64 @@ void trk::detect(const char* name)
         }
 
         cv::imshow(name, img);
+    } else {
+        std::cout << "Empty image!" << std::endl;
     }
+}
+
+/**
+ * Run camera detection and show result
+ *
+ * @return void
+ */
+void trk::detectCam()
+{
+    const char* name = "Video";
+    const char* cascadePath = "/usr/local/share/OpenCV/haarcascades/haarcascade_eye.xml";
+
+    cv::namedWindow(name, CV_WINDOW_NORMAL);
+
+    // Open webcam
+	cv::VideoCapture cap(0);
+
+	// Check if everything is ok
+	if (cap.isOpened()) {
+	    cv::Mat frame, pupil;
+
+	    while (cv::waitKey(15)) {
+		    cap >> frame;
+		    if (frame.empty())
+			    break;
+
+		    // Flip the frame horizontally, Windows users might need this
+		    cv::flip(frame, frame, 1);
+
+		    if (pupil.cols < 1) {
+                std::vector<cv::Rect> eyes = trk::detectEyes(cascadePath, frame);
+
+                std::cout << "Eyes found: " << eyes.size() << std::endl;
+
+                if (!eyes.empty()) {
+                    cv::Mat eye = frame(eyes[0]);
+
+                    cv::imshow("Eye", eye);
+
+                    std::cout << "Detecting pupil" << std::endl;
+                    cv::Rect rPupil = trk::detectPupil(eye);
+                    if (rPupil.width > 0) {
+                        pupil = eye(rPupil);
+                        cv::imshow("Pupil", pupil);
+                    }
+	            }
+	        } else {
+	            cv::Point match = trackPupil(frame, pupil);
+
+                int radius = cvRound(pupil.cols / 2);
+		        cv::circle(frame, cv::Point(match.x + radius, match.y + radius), radius, CV_RGB(255, 0, 0), 2);
+            }
+
+		    // Display video
+		    cv::imshow(name, frame);
+	    }
+	}
 }
