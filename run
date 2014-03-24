@@ -1,5 +1,0 @@
-#!/bin/sh
-
-g++ -o pupil main.cpp trk/trk.cpp `pkg-config --cflags --libs opencv`
-
-./pupil

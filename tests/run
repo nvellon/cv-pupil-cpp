@@ -1,0 +1,5 @@
+#!/bin/sh
+
+g++ -o tests main.cpp trk/trk.cpp `pkg-config --cflags --libs opencv`
+
+./tests
