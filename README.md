@@ -33,9 +33,9 @@ Run (g++ compilation and execution):
 Changelog
 ---------
 
-0.0.1-alpha
+v0.0.1-alpha
 - Eye detection function based on haar classifier.
 - Pupil detection based on round contour strategy, so pupil must be completely visible.
 - Pupil tracking based on template matching.
 - tkr namespace.
-- Dummy function for testing with photos: tkr::detect("/path/to/image").
+- Dummy function for testing with photos: tkr::detect("/path/to/image") with shrinking image support.
