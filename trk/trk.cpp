@@ -125,25 +125,25 @@ int match_method = CV_TM_CCORR_NORMED;
 void trk::detectFile(const char* name)
 {
     // Load image
-	cv::Mat img = cv::imread(name);
-	
-	if (!img.empty()) {
-	    // shrink image
-	    int minRows = 400;
-	    if (img.rows > minRows) {
-	        int minCols = cvRound(((double)minRows / (double)img.rows) * (double)img.cols);
+    cv::Mat img = cv::imread(name);
+
+    if (!img.empty()) {
+        // shrink image
+        int minRows = 400;
+        if (img.rows > minRows) {
+            int minCols = cvRound(((double)minRows / (double)img.rows) * (double)img.cols);
             cv::resize(img, img, cv::Size(minCols, minRows), 0, 0, cv::INTER_LINEAR);
-	    }
+        }
 
         cv::namedWindow(name, CV_WINDOW_NORMAL);
 
         // Eyes detection
         std::cout << "Eyes detection" << std::endl;
         double t = (double)cvGetTickCount();
-        
-        const char* cascadePath = "/usr/share/opencv/haarcascades/haarcascade_eye.xml";
+
+        const char* cascadePath = "/usr/local/share/OpenCV/haarcascades/haarcascade_eye.xml";
         std::vector<cv::Rect> eyes = trk::detectEyes(cascadePath, img);
-        
+
         t = (double)cvGetTickCount() - t;
         printf("- time = %g ms\n", t/((double)cvGetTickFrequency()*1000.));
 
