@@ -33,6 +33,12 @@ Run (g++ compilation and execution):
 Changelog
 ---------
 
+v0.0.2-alpha
+- Add camera pupil detection.
+- Change name of function trk::detect("...") to trk::detectFile("...").
+- Change on ./run to run camera detection.
+- Minor changes on code style and classifier source file paths.
+
 v0.0.1-alpha
 - Eye detection function based on haar classifier.
 - Pupil detection based on round contour strategy, so pupil must be completely visible.
