@@ -14,24 +14,28 @@ Run these commands to install OpenCV:
     $ sudo apt-get install libopencv-*
 
 
-Pupil installation and run
---------------------------
+Pupil installation
+------------------
 
 Clone repo:
 
     $ git clone https://github.com/nvellon/cv-pupil-cpp.git
 
-Granting permissions:
+Check /tests directory for usage examples.
 
-    $ cd cv-pupil-cpp
-    $ chmod +x run
-
-Run (g++ compilation and execution):
-
-    $ ./run
 
 Changelog
 ---------
+
+v0.0.3-alpha
+- Change on directory structure.
+- Add namespace cvp. 
+- Add cvp::Tracker interface class. 
+- Add cvp::Eye class -implements cvp::Tracker- for eye detection and tracking. 
+- Add cvp::Pupil class -implements cvp::Tracker- for pupil detection and tracking.
+- Remove old test scripts.
+- Add new test scripts for cvp::Eye class.
+- Fix coding style.
 
 v0.0.2-alpha
 - Add camera pupil detection.
