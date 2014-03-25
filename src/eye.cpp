@@ -34,7 +34,7 @@ cv::Size minSize(cvRound(img.cols * _minSizeRatio), cvRound(img.rows * _minSizeR
 
 void cvp::Eye::track(cv::Mat img)
 {
-
+    detect(img);
 }
 
 int cvp::Eye::getCount()
