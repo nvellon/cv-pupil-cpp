@@ -27,6 +27,14 @@ Check /tests directory for usage examples.
 Changelog
 ---------
 
+v0.0.4-alpha
+- Change cvp::Eye::track() method to call detect() method.
+- Change tests for trk::Eye class for image files. 
+- Add test for trk::Eye class for camera stream.
+- Change cvp::Eye::detect() internal variables definition.
+- Add cvp::Pupil class.
+- Add cvp::Pupil class tests.
+
 v0.0.3-alpha
 - Change on directory structure.
 - Add namespace cvp. 
