@@ -7,7 +7,7 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-    cv::Mat img = cv::imread("img/ojo4.jpg");
+    cv::Mat img = cv::imread("img/ojo.jpg");
 
     if (!img.empty()) {
         cvp::Eye tracker("/usr/local/share/OpenCV/haarcascades/haarcascade_eye.xml", 0.2);
@@ -28,15 +28,16 @@ int main(int argc, char** argv)
                 cv::imshow(wName, eyes[i]);
             }
 
-            cout << "Press any key to finish." << endl;
-
-            cv::waitKey(0);
         } else {
             cout << "Error: no eyes found." << endl;
         }
     } else {
         cout << "Error: no image loaded." << endl;
     }
+
+    cout << "Press any key to finish." << endl;
+
+    cv::waitKey(0);
 
     return 0;
 }

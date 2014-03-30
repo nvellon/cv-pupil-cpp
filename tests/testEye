@@ -1,5 +1,0 @@
-#!/bin/sh
-
-g++ -o eyeTest testEye.cpp ../src/eye.cpp `pkg-config --cflags --libs opencv`
-
-./eyeTest

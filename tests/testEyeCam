@@ -1,0 +1,5 @@
+#!/bin/sh
+
+g++ -o eyeCamTest testEyeCam.cpp ../src/eye.cpp `pkg-config --cflags --libs opencv`
+
+./eyeCamTest
