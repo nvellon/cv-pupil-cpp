@@ -18,6 +18,7 @@ cvp::Pupil::~Pupil()
 void cvp::Pupil::detect(cv::Mat img)
 {
 cv::Mat gray;
+cv::Mat candidate;
 
     // Invert the source image and convert to grayscale
     cv::cvtColor(img, gray, CV_BGR2GRAY);
@@ -25,9 +26,6 @@ cv::Mat gray;
     // Other filters
     //cv:equalizeHist(gray, gray);
     //cv::blur(gray, gray, Size(30, 30), Point(-1,-1), BORDER_DEFAULT);
-
-    cv::Mat candidate;
-    cv::Rect pupil;
 
     for (int threshold = 0; threshold <= 255 && _rect.width < 1; threshold++) {
         // Convert to binary image by thresholding it
