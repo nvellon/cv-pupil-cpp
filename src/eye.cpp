@@ -18,12 +18,12 @@ cvp::Eye::~Eye()
 
 void cvp::Eye::detect(cv::Mat img)
 {
-cv::Mat img_gray;
 // detectMultiScale params
 double scaleFactor = 1.1;
 int minNeighbors = 2;
 int flags = CV_HAAR_SCALE_IMAGE;
 cv::Size minSize(cvRound(img.cols * _minSizeRatio), cvRound(img.rows * _minSizeRatio));
+cv::Mat img_gray;
 
     _srcImage = img.clone();
 
