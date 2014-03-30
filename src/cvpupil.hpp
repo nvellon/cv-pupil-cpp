@@ -66,9 +66,15 @@ public:
  */
 class cvp::Pupil : cvp::Tracker
 {
+protected:
+    cv::Mat _srcImage;
+    cv::Rect _rect;
+    vector<cv::Point> _contour;
+
 public:
-    Pupil(){}
-    ~Pupil(){}
-    void detect(cv::Mat img){}
-    void track(cv::Mat img){}
+    Pupil();
+    ~Pupil();
+    void detect(cv::Mat img);
+    void track(cv::Mat img);
+    cv::Rect getRect();
 };
