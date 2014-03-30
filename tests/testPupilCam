@@ -1,0 +1,5 @@
+#!/bin/sh
+
+g++ -o pupilCamTest testPupilCam.cpp ../src/eye.cpp ../src/pupil.cpp `pkg-config --cflags --libs opencv`
+
+./pupilCamTest
