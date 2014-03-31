@@ -7,12 +7,13 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-    cv::Mat img = cv::imread("img/ojo.jpg");
+    cv::Mat img = cv::imread("img/ojo3.jpg");
 
     if (!img.empty()) {
-        cvp::Eye tracker("/usr/local/share/OpenCV/haarcascades/haarcascade_eye.xml", 0.2);
+        cvp::Eye tracker;
+        cvp::EyeHaarDetection* strategy = new cvp::EyeHaarDetection("/usr/local/share/OpenCV/haarcascades/haarcascade_eye.xml", 0.2);
 
-        tracker.detect(img);
+        tracker.detect(strategy, img);
 
         if (tracker.getCount() > 0) {
             vector<cv::Mat> eyes = tracker.getMats();
@@ -31,6 +32,9 @@ int main(int argc, char** argv)
         } else {
             cout << "Error: no eyes found." << endl;
         }
+
+        delete strategy;
+
     } else {
         cout << "Error: no image loaded." << endl;
     }
