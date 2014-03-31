@@ -11,7 +11,8 @@ int main(int argc, char** argv)
 
     cv::VideoCapture cap(0);
 
-    cvp::Eye tracker("/usr/local/share/OpenCV/haarcascades/haarcascade_eye.xml", 0.2);
+    cvp::Eye tracker;
+    cvp::EyeHaarDetection* strategy = new cvp::EyeHaarDetection("/usr/local/share/OpenCV/haarcascades/haarcascade_eye.xml", 0.2);
 
     if (cap.isOpened()) {
         cv::Mat frame, pupil;
@@ -23,7 +24,7 @@ int main(int argc, char** argv)
 
             cv::flip(frame, frame, 1);
 
-            tracker.detect(frame);
+            tracker.detect(strategy, frame);
 
             if (tracker.getCount() > 0) {
                 vector<cv::Rect> eyes = tracker.getRects();
