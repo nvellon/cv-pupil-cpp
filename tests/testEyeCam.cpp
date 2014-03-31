@@ -42,5 +42,7 @@ int main(int argc, char** argv)
         cout << "Error: no camera loaded." << endl;
     }
 
+    delete strategy;
+
     return 0;
 }
