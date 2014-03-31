@@ -27,6 +27,12 @@ Check /tests directory for usage examples.
 Changelog
 ---------
 
+v0.0.5-alpha
+- Add cvp::Pupil camera stream tests.
+- Remove old deprecated code and trk namespace.
+- Strategy pattern implementation for detection and tracking, based on cvp::Strategy interface.
+- Change test to support new detection strategy pattern.
+
 v0.0.4-alpha
 - Change cvp::Eye::track() method to call detect() method.
 - Change tests for trk::Eye class for image files. 
