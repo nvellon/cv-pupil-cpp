@@ -10,9 +10,12 @@ int main(int argc, char** argv)
     cv::Mat img = cv::imread("img/ojo3.jpg");
 
     if (!img.empty()) {
-        cvp::Eye eye("/usr/local/share/OpenCV/haarcascades/haarcascade_eye.xml", 0.2);
+        cvp::Eye eye;
 
-        eye.detect(img);
+        cvp::EyeHaarDetection* strategy = new cvp::EyeHaarDetection("/usr/local/share/OpenCV/haarcascades/haarcascade_eye.xml", 0.2);
+        cvp::PupilContourDetection* pStrategy = new cvp::PupilContourDetection();
+
+        eye.detect(strategy, img);
 
         if (eye.getCount() > 0) {
             vector<cv::Mat> eyes = eye.getMats();
@@ -22,7 +25,7 @@ int main(int argc, char** argv)
             for (int i = 0; i < eyes.size(); i++) {
 
                 cvp::Pupil pupil;
-                pupil.detect(eyes[i]);
+                pupil.detect(pStrategy, eyes[i]);
 
                 cv::rectangle(eyes[i], pupil.getRect(), CV_RGB(255, 0, 0));
 
