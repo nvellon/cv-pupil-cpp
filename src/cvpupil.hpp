@@ -28,6 +28,11 @@ class Strategy;
 class EyeHaarDetection;
 
 /**
+ * PupilContourDetection class
+ */
+class PupilContourDetection;
+
+/**
  * Eye tracking class
  */
 class Eye;
@@ -77,6 +82,21 @@ public:
 };
 
 /**
+ * PupilContourDetection class
+ */
+class cvp::PupilContourDetection : public cvp::Strategy
+{
+protected:
+    cv::Mat _srcImage;
+    cv::Rect _rect;
+    vector<cv::Point> _contour;
+public:
+    PupilContourDetection();
+    ~PupilContourDetection(){}
+    vector<cv::Rect> process(cv::Mat img);
+};
+
+/**
  * Eye tracking class
  */
 class cvp::Eye : public cvp::Tracker
@@ -103,12 +123,11 @@ class cvp::Pupil : public cvp::Tracker
 protected:
     cv::Mat _srcImage;
     cv::Rect _rect;
-    vector<cv::Point> _contour;
 
 public:
     Pupil();
     ~Pupil();
-    void detect(cv::Mat img);
+    void detect(cvp::Strategy* strategy, cv::Mat img);
     void track(cv::Mat img);
     cv::Rect getRect();
 };
