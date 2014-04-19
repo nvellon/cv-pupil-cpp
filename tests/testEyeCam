@@ -1,5 +1,5 @@
 #!/bin/sh
 
-g++ -o eyeCamTest testEyeCam.cpp ../src/eye.cpp ../src/eyehaardetection.cpp `pkg-config --cflags --libs opencv`
+g++ -o eyeCamTest testEyeCam.cpp ../src/eye/tracker.cpp ../src/eye/haardetection.cpp `pkg-config --cflags --libs opencv`
 
 ./eyeCamTest

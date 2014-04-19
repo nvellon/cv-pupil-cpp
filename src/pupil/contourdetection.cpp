@@ -1,15 +1,15 @@
-#include "cvpupil.hpp"
+#include "../cvpupil.hpp"
 
 using namespace std;
 
 /**
  * PupilContourDetection class
  */
-cvp::PupilContourDetection::PupilContourDetection()
+cvp::pupil::ContourDetection::ContourDetection()
 {
 }
 
-vector<cv::Rect> cvp::PupilContourDetection::process(cv::Mat img)
+vector<cv::Rect> cvp::pupil::ContourDetection::process(cv::Mat img)
 {
 cv::Mat gray;
 cv::Mat candidate;

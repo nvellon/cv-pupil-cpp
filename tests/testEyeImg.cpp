@@ -10,8 +10,8 @@ int main(int argc, char** argv)
     cv::Mat img = cv::imread("img/ojo3.jpg");
 
     if (!img.empty()) {
-        cvp::Eye tracker;
-        cvp::EyeHaarDetection* strategy = new cvp::EyeHaarDetection("/usr/local/share/OpenCV/haarcascades/haarcascade_eye.xml", 0.2);
+        cvp::eye::Tracker tracker;
+        cvp::eye::HaarDetection* strategy = new cvp::eye::HaarDetection("/usr/local/share/OpenCV/haarcascades/haarcascade_eye.xml", 0.2);
 
         tracker.detect(strategy, img);
 

@@ -10,10 +10,10 @@ int main(int argc, char** argv)
     cv::Mat img = cv::imread("img/ojo3.jpg");
 
     if (!img.empty()) {
-        cvp::Eye eye;
+        cvp::eye::Tracker eye;
 
-        cvp::EyeHaarDetection* strategy = new cvp::EyeHaarDetection("/usr/local/share/OpenCV/haarcascades/haarcascade_eye.xml", 0.2);
-        cvp::PupilContourDetection* pStrategy = new cvp::PupilContourDetection();
+        cvp::eye::HaarDetection* strategy = new cvp::eye::HaarDetection("/usr/local/share/OpenCV/haarcascades/haarcascade_eye.xml", 0.2);
+        cvp::pupil::ContourDetection* pStrategy = new cvp::pupil::ContourDetection();
 
         eye.detect(strategy, img);
 
@@ -24,7 +24,7 @@ int main(int argc, char** argv)
 
             for (int i = 0; i < eyes.size(); i++) {
 
-                cvp::Pupil pupil;
+                cvp::pupil::Tracker pupil;
                 pupil.detect(pStrategy, eyes[i]);
 
                 cv::rectangle(eyes[i], pupil.getRect(), CV_RGB(255, 0, 0));
