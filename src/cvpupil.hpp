@@ -22,6 +22,19 @@ class Tracker;
  */
 class Strategy;
 
+    namespace face
+    {
+    /**
+     * Face tracking class
+     */
+    class Tracker;
+
+    /**
+     * FaceHaarDetection class
+     */
+    class HaarDetection;
+    }
+
     namespace eye
     {
     /**
@@ -76,6 +89,46 @@ public:
     Strategy(){}
     virtual ~Strategy(){}
     virtual vector<cv::Rect> process(cv::Mat img)=0;
+};
+
+
+/**
+ * Face namespace
+ */
+
+/**
+ * Face tracking class
+ */
+class cvp::face::Tracker : public cvp::Tracker
+{
+protected:
+    cv::Mat _srcImage;
+    vector<cv::Rect> _faces;
+
+public:
+    Tracker();
+    ~Tracker();
+    void detect(cvp::Strategy* strategy, cv::Mat img);
+    void track(cvp::Strategy* strategy, cv::Mat img);
+    int getCount();
+    vector<cv::Rect> getRects();
+    vector<cv::Mat> getMats();
+};
+
+/**
+ * Face HaarDetection class
+ */
+class cvp::face::HaarDetection : public cvp::Strategy
+{
+protected:
+    double _minSizeRatio;
+    const char* _cascadePath;
+    cv::CascadeClassifier _cascade;
+    cv::Mat _srcImage;
+public:
+    HaarDetection(const char* cascadePath, double minSizeRatio);
+    ~HaarDetection(){}
+    vector<cv::Rect> process(cv::Mat img);
 };
 
 

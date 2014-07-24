@@ -1,0 +1,5 @@
+#!/bin/sh
+
+g++ -o faceCamTest testFaceCam.cpp ../src/face/tracker.cpp ../src/face/haardetection.cpp `pkg-config --cflags --libs opencv`
+
+./faceCamTest
