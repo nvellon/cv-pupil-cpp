@@ -19,11 +19,14 @@ vector<cv::Rect> eyes;
 
 // detectMultiScale params
 double scaleFactor = 1.1;
-int minNeighbors = 2;
+int minNeighbors = 3;
 int flags = CV_HAAR_SCALE_IMAGE;
 cv::Size minSize(cvRound(img.cols * _minSizeRatio), cvRound(img.rows * _minSizeRatio));
+cv::Size maxSize(cvRound(img.cols * _minSizeRatio * 2), cvRound(img.rows * _minSizeRatio * 2));
 
     cv::cvtColor(img, img_gray, CV_RGB2GRAY);
+
+    cv::equalizeHist(img_gray, img_gray);
 
     _cascade.load(_cascadePath);
 

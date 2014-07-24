@@ -12,7 +12,7 @@ int main(int argc, char** argv)
     cv::VideoCapture cap(0);
 
     cvp::eye::Tracker tracker;
-    cvp::eye::HaarDetection* strategy = new cvp::eye::HaarDetection("/usr/local/share/OpenCV/haarcascades/haarcascade_eye.xml", 0.2);
+    cvp::eye::HaarDetection* strategy = new cvp::eye::HaarDetection("/home/nicolas/repos/git/cv-pupil-cpp/assets/haarcascades/haarcascade_eye.xml", 0.01);
 
     if (cap.isOpened()) {
         cv::Mat frame, pupil;
